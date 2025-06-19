@@ -64,7 +64,7 @@ import net.runelite.client.plugins.banktags.BankTagsPlugin;
 import net.runelite.client.plugins.banktags.tabs.LayoutManager;
 
 @Slf4j
-@PluginDescriptor(name = "Zigzag Layout For Bank Tag Tabs", description = "Right click a bank tag tab, and click \"Enable layout\", then right click again and chose Auto layout: Zigzag ", tags = {"bank", "tag", "layout"})
+@PluginDescriptor(name = "Zigzag Layout For Bank Tag Tabs", description = "Right click a bank tag tab, and click \"Enable layout\", then right click again and chose Auto layout: Zigzag", tags = {"bank", "tag", "layout"})
 @PluginDependency(BankTagsPlugin.class)
 public class ZigzagBankTagTabLayoutPlugin extends Plugin
 {
