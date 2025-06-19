@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019, dillydill123 <https://github.com/dillydill123>
+ * Copyright (c) 2021, geheur
+ * Copyright (c) 2025, hjdarnel
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,47 +23,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package inventorysetupz;
+package com.hjdarnel.ZigzagBankTagTabLayoutPlugin;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-@AllArgsConstructor
-public class InventorySetupsItem
+@ConfigGroup("ZigzagBankTagTabLayoutPlugin")
+public interface ZigzagBankTagTabLayoutConfig extends Config
 {
-	@Getter
-	private final int id;
-	@Getter
-	@Setter
-	private String name;
-	@Getter
-	@Setter
-	private int quantity;
-	@Getter
-	@Setter
-	private boolean fuzzy;
-	@Getter
-	@Setter
-	private InventorySetupsStackCompareID stackCompare;
-
-	public void toggleIsFuzzy()
+	@ConfigItem(
+		keyName = "autoLayoutDuplicatesEnabled",
+		name = "Create duplicates",
+		description = "Whether or not to create duplicates when there are multiple of the same item when using auto-layout.",
+		position = 0
+	)
+	default boolean autoLayoutDuplicatesEnabled()
 	{
-		fuzzy = !fuzzy;
+		return true;
 	}
 
-	public static InventorySetupsItem getDummyItem()
+	@ConfigItem(
+		keyName = "autoLayoutDuplicateLimit",
+		name = "Duplicate limit",
+		description = "The maximum number of items in a row to create duplicates for with auto-layout. Set to 28 to create duplicates for every item. To disable duplicate creation, toggle the \"Create duplicates\" option off.",
+		position = 1
+	)
+	default int autoLayoutDuplicateLimit()
 	{
-		return new InventorySetupsItem(-1, "", 0, false, InventorySetupsStackCompareID.None);
+		return 4;
 	}
 
-	public static boolean itemIsDummy(final InventorySetupsItem item)
+	@ConfigItem(
+		keyName = "autoLayoutIncludeRunePouchRunes",
+		name = "Include Rune Pouch Runes",
+		description = "Include the runes in the rune pouch when making the layout. The runes will also not be added to the tag.",
+		position = 2
+	)
+	default boolean autoLayoutIncludeRunePouchRunes()
 	{
-		// Don't use the name to compare
-		return item.getId() == -1 &&
-			item.getQuantity() == 0 &&
-			!item.isFuzzy() &&
-			(item.getStackCompare() == InventorySetupsStackCompareID.None || item.getStackCompare() == null);
+		return true;
 	}
-
 }
